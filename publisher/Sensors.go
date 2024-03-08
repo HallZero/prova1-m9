@@ -42,7 +42,7 @@ func (s *Sensor) ToJSON() (string, error) {
 }
 
 func main() {
-	freezer_sensor := NewSensor("lj01f01", "freezer", 78, "01/03/2024 14:30")
+	freezer_sensor := NewSensor("lj01f01", "freezer", 0, "01/03/2024 14:30")
 
 	client := DefaultClient.CreateClient(DefaultClient.Broker, DefaultClient.IdPublisher, DefaultClient.Handler)
 
@@ -56,7 +56,7 @@ func main() {
 
 		payload, _ := freezer_sensor.ToJSON()
 
-		freezer_sensor.Temperature = rand.Int()
+		freezer_sensor.Temperature = rand.Intn(40) - 30
 
 		token := client.Publish(topic, 1, false, payload)
 
